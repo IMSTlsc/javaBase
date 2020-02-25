@@ -15,5 +15,37 @@
 
 3、内存分析
 栈：存放局部变量，方法执行完毕，自动释放空间
-堆：存放new出来的对象，需要垃圾回收器回收，System.gc()
+堆：成员变量放在堆中，存放new出来的对象，需要垃圾回收器回收，System.gc()
 方法区：存放类的信息、static变量、字符串常量等
+
+4、构造器和this
+构造器也叫构造方法，可以在其中定义变量，执行语句。
+this表示当前对象的一个引用，不能和static，super同时使用
+public class Construct {
+    String name;//成员变量放在堆中。
+    static int age;//static修饰成员变量市，表示静态变量，为整个类所用，存储在方法的静态区。
+    //在类加载时就已经显式初始化。
+    public Construct(String name, int age)//构造器初始化数据
+    {
+        this.name = name;
+        this.age = age;
+    }
+    public Construct()//无参构造器
+    {
+      this("ll",123);//使用this调用类中其他构造器，必须放在第一条
+    }
+    public void Construct()//普通方法
+    {
+        System.out.println(Construct.age)//可以
+    }
+    public void test(String name)
+    {
+        System.out.println("test2\t" + name);
+        System.out.println("test2\t" + this.name);
+    }
+    public static void main(String[] args) {
+        Construct c = new Construct("con",123);
+        System.out.println(c.name);
+        c.test("test");
+    }
+}
