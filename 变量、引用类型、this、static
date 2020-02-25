@@ -5,8 +5,28 @@
 作用范围不同： 当前类的方法 | 当前方法
 内存存放位置不同： 栈内存中 | 堆内存中
 默认值：成员变量有默认值 | 局部变量没有默认值
+在成员变量中，有static修饰的是类变量，没有static修饰的是实例变量。
+在java中
+public class Value {
 
-在成员变量中，有static修饰的是类变量，没有static修饰的是实例变量
+    public void ex(int a , int b)
+    {
+        int temp = a;
+        a = b;
+        b = temp;
+        //在方法中ab的值交换，但是形参是局部变量，方法执行完即销毁
+        System.out.println(a + " "+ b);
+        
+    }
+
+    public static void main(String[] args) {
+        int a1 = 1;
+        int a2 = 2;
+        new Value().ex(a1,a2);
+        //在另一个方法a1，a2的值不变
+        System.out.println(a1 + " " + a2);
+    }
+}
 
 2、引用数据类型
 基本数据类型储存在栈中，引用数据类型储存在堆中。
