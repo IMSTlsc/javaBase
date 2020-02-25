@@ -1,0 +1,22 @@
+public class Array {
+    int[] arr1 = new int[5];//创建数组就会开辟空间，默认全0
+    int[] arr2 = null;
+//    arr2 = new int[5];//不能分两行复制
+    int[] arr3 = {1,2,3};//可以直接复制
+
+    public void print(int[] array)
+    {
+        for(int i : array)
+        {
+            System.out.println(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr4 = null;//先在栈中创建地址
+        arr4 = new int[4];//new时在堆内存中分配空间
+        Array a = new Array();
+        a.print(a.arr1);
+        a.print(a.arr3);
+    }
+}
