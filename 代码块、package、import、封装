@@ -1,0 +1,33 @@
+1、代码块
+*代码块是使用{}括起来的一段代码
+* 普通代码块：定义在方法中
+* 构造代码块：定义在类中，每次运行时会将构造代码块添加到构造方法中的第一行，当构造方法中使用this时不添加。
+* 静态代码块：使用static{}的代码，属于类，加载类时已经运行。常用于数据库链接等
+* 同步代码块：在多线程时使用，用来给共享空间进行加锁操作
+* 静态-构造-普通
+ */
+public class CodeBlock {
+    {
+        System.out.println("构造代码块块");
+    }
+    static
+    {
+        System.out.println("静态代码块");
+    }
+    public void test()
+    {
+        System.out.println("普通代码块");
+
+        {
+            System.out.println("我是谁");
+        }
+    }
+    public static void main(String[] args) {
+        new CodeBlock().test();
+    }
+}
+2、package
+package 域名倒写
+3、import 包名.类名
+当使用多个同名类时，只能选择导入一个，另一个使用完全名字。
+静态导包 import static java.lang.Math.*; 使用Math中的方法可以直接abs(-1)，不必Math.abs(-1)。优先使用当前类中abs()方法。
