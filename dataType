@@ -1,0 +1,18 @@
+public class DataType
+{
+	public static void main(String[] args)
+	{
+		byte t = 127;//byte一个字节，8位，-128-127
+		long d = 11111111111L;//L默认int类型，超过int（3字节）值，使用long后边加L
+		char c1 = '\n';//换行，不一定在行头
+    char c2 = '\r';//return，到行头
+    char c3 = '\n\r';//换行到行头
+    char c4 = '\t';//tab制表，大空格
+		
+		int a = 3;
+		int b = 4;
+		System.out.println(1+a++);//先打印1+a的值为4，a的值再加1
+		System.out.println(a);//输出a为4
+		System.out.println(++b);//b的值先自加，再打印b的值
+	}
+}
