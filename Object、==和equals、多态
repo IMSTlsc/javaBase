@@ -58,15 +58,19 @@ public class ObjectT {
 
 }
 3、多态
-提高代码的扩展性和可维护性。
+1）提高代码的扩展性和可维护性。
 多态必须有继承关系，子类必须重写父类方法，父类引用指向子类对象。
 同一个引用类型指向不同的实例而进行不同的操作，例如
         pet c = new cat();//父类引用指向子类对象，c为pet型，只能引用pet中的方法。若pet中的方法
         //被cat重写，则使用cat中的方法。
         dog d = new dog();//d可以执行pet和dog中所有的方法。
-强制类型准换需要保证父类引用指向子类对象。
-        pet p2 = new cat();//p2为pet型，指向子类cat。
-        cat c =(cat)p2;//强制转转为cat型。
+2）强制类型准换需要保证父类引用指向子类对象，常和instanceOf一起使用。
+        pet p2 = new cat();//p2为pet型，指向子类cat。新建了一个cat实例。
+        if(p2 instanceof cat)
+        {
+            cat c =(cat)p2;
+            System.out.println("p2是cat的一个实例");
+        }
         
 public class poly {
 //    public void feed(cat cat)
