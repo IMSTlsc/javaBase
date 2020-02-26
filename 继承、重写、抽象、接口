@@ -69,7 +69,7 @@ abstract class AbstractT extends abs{
     public final void test1(){}//重写父类的实例方法，添加final修饰符，此方法无法被再次重写。
     
     public static void main(String[] args) {
-        AbstractT a = new AbstractT() {//在创建子类实例的时候实现父类的抽象方法
+        AbstractT a = new AbstractT() {//匿名内部类实现抽象类的方法，看似new了一个抽象类，实际上new了一个接口的实现类
             @Override
             void test() {
                 System.out.println("123");
@@ -132,6 +132,74 @@ class D extends B{//使用具体类继承抽象类，具体类必须实现父类
 相同：
 接口和类都不能实例化
 实现类必须实现接口或者抽象类中所有的方法，不能用abstract传递给子类，因为有abstract方法的必须是接口或者抽象类。
+
+6、内部类
+//1、一个类内部定义类，称为内部类，可以当作一个成员属性
+//2、内部类可以访问外部类的私有属性,外部类不能直接访问内部类的属性，外部类通过新建内部类实例访问
+//3、创建内部类的方法；outter.InnerClass in1 = new outter().new InnerClass();//直接创建内部类实例
+//4、内部类中的方法不能用static修饰
+//5、匿名内部类，new interface(){重写方法};
+public class InnerClass {
+    public static void main(String[] args) {
+        outter o = new outter();//创建外部类实例
+
+        outter.InnerClass in1 = new outter().new InnerClass();//直接创建内部类实例
+        in1.print();
+
+       //匿名内部类开始
+        new Thread(new Runnable() { //Thread()中需要Runnable接口类型对象
+            //new Thread(new aaa implements Runnable())，省略aaa implements
+            // 看着像new了一个接口，实际上是new了一个接口的实现类
+            @Override
+            public void run() {
+            }
+        });
+        new Runnable()//
+        {
+            @Override
+            public void run() {
+            }
+        };
+        //非匿名内部类
+        new Thread(new runner());//可以新建一个runner类实现Runnable接口
+    }
+}
+class runner implements Runnable
+{
+    @Override
+    public void run() {
+    }
+}
+//匿名内部类结束
+//内部类开始
+class outter
+{
+    private int age;
+    private String name = "outter";
+
+    public void show()
+    {
+        //print();外部类不能直接访问内部类的属性
+        new InnerClass().print();//新建内部类实例调用内部类方法
+        System.out.println(new InnerClass().id);//通过新建实例可以访问内部类的私有属性
+    }
+    class InnerClass
+    {
+        private int id = 1;
+        private String name = "inner";
+
+        public void print() {
+            age=2;//内部类可以直接访问外部类的私有属性
+            System.out.println(name);//内部类中默认访问内部类重名属性
+            System.out.println(this.name);
+            System.out.println(outter.this.name);//可以使用outter.this访问外部重名属性
+        }
+//        public static void fail(){}内部类不能定义static方法
+    }
+}
+//内部类结束
+
+
 
 
 
