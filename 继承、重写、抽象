@@ -1,0 +1,61 @@
+1、继承
+表示父类跟子类的关系，子类是父类的一种。
+如果子类构造方法不指定super(...),则子类构造方法默认super()，会默认调用父类无参构造方法。调用构造方法，不是继承构造方法。
+初始化顺寻为：父类属性→父类构造方法→子类属性→子类构造方法
+public class extendTest extends father//使用extends表示继承，只能继承一个父类
+{
+    private int weight;
+    public extendTest(String name, int age, int weight)
+    {
+        super(name,age);//在构造方法中使用super，会调用父类构造方法，必须写在第一行
+        this.weight = weight;
+    }
+    public extendTest(){
+        //this();不能同时使用this调用此类构造器方法，使用super调用父类构造器方法。
+        super("qwe",132);//在子类构造器中，如果没有super(...)，则默认调用super()
+    }
+    //public extendTest(){}子类构造器默认调用super()，要求父类也有对应的无参构造器。
+    public void print()
+    {
+        System.out.println("son");
+        super.print();//在普通方法中使用super调用父类中的方法，super可在任意位置，不可与static同用
+    }
+    public static void main(String[] args) {
+        extendTest ex = new extendTest();
+        ex.print();
+    }
+}
+class father
+{
+    private String name;
+    private int age;
+
+    public father(){}
+    public father(String name, int age)
+    {
+        this.name = name;
+        this.age = age;
+    }
+    public void prin()
+    {
+        System.out.println("father");
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public int getAge() {
+        return age;
+    }
+}
+2、重写
+子类重写父类方法，会优先调用子类方法。
+重写的方法只能改变方法体。
+重写方法不能缩小访问权限。
