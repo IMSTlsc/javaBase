@@ -83,3 +83,35 @@ abstract class abs
     abstract void test();//定义抽象方法，没有方法体
     public  void test1(){}
 }
+
+4、接口
+1）接口使用implement实现，接口中所有方法都是抽象方法。接口可由具体类和抽象类实现，不能由接口实现。
+2）默认是abstract修饰符，访问控制权限只能是public。不写就是public abstract 
+3）接口不能被实例化。
+4）实现类必须实现接口中所有的方法（包括抽象父类中未实现的方法）。抽象类可以实现接口，不用实现接口中的方法。
+abstract  class A
+{
+    public abstract void m1();
+    public abstract void m2();
+}
+interface In
+{
+    void in1();
+    void in2();
+}
+abstract class B extends A implements In{//使用抽象类继承抽象类，实现接口
+    @Override
+    public void m1(){}//抽象类中可以有具体方法
+
+    @Override
+    public void in1(){}
+}
+class D extends B{//使用具体类继承抽象类，具体类必须实现父类中未实现的抽象方法
+    @Override
+    public void m2(){//实现抽象父类中未实现的方法
+        //In n = new In();接口不能实例化。
+        //A a = new A();抽象类不能实例化。
+
+    }
+    public void in2(){}//由于接口中的方法修饰符默认为public abstract，因此实现方法修饰符必须显式public
+}
