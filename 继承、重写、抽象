@@ -60,4 +60,26 @@ class father
 重写的方法名称一样，形参列表一样，返回值一样或是子类。
 重写方法不能缩小访问权限。
 3、抽象
-
+//1、有些类没有创建实例的意义，因此有了抽象类，抽象类不能实例化
+//2、创建抽象类需要abstract关键字
+//3、抽象类中可以有抽象方法和具体方法。子类必须实现父类的抽象方法。
+abstract class AbstractT extends abs{
+    final int i = 1;//final修饰的变量为常量，i的值无法更改就为1
+    @Override
+    public final void test1(){}//重写父类的实例方法，添加final修饰符，此方法无法被再次重写。
+    
+    public static void main(String[] args) {
+        AbstractT a = new AbstractT() {//在创建子类实例的时候实现父类的抽象方法
+            @Override
+            void test() {
+                System.out.println("123");
+            }
+        };
+        a.test();
+    }
+}
+abstract class abs
+{
+    abstract void test();//定义抽象方法，没有方法体
+    public  void test1(){}
+}
