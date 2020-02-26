@@ -1,8 +1,6 @@
 1、Object
 一个类如果没有extends继承其他类，那么这个类就继承Object类。
 2、==和equals
-package Base;
-
 import java.util.Objects;
 
 public class ObjectT {
@@ -14,23 +12,7 @@ public class ObjectT {
         this.age = age;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    @Override//自定义类需要重写equals，否则总是返回false
+    @Override//自定义类需要重写equals，否则调用Object中的equals，return(this==obj)。
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -39,7 +21,7 @@ public class ObjectT {
                 Objects.equals(name, objectT.name);
     }
 
-    @Override
+    @Override//哈希码可以理解为对象的地址值
     public int hashCode() {
         return Objects.hash(name, age);
     }
@@ -57,4 +39,64 @@ public class ObjectT {
         System.out.println(s1.equals(s3));//T，equals比较两个对象内容是否一致，自定义类必须重写equals，否则总是返回false
 
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
 }
+3、多态
+public class poly {
+//    public void feed(cat cat)
+//    {
+//        cat.feed();
+//    }
+//    public void feed(dog d)
+//    {
+//        d.feed();
+//    }
+    public void feed(pet p)//定义喂宠物，当调用时根据参数决定调用猫或狗.定义方法时使用父类，调用时使用子类
+    {
+        p.feed();
+    }
+    public static void main(String[] args) {
+        poly p = new poly();
+        pet c = new cat();//
+        dog d = new dog();
+        p.feed(c);
+        p.feed(d);
+    }
+}
+abstract class pet
+{
+    public abstract void feed();
+}
+class dog extends pet
+{
+    @Override
+    public void feed()
+    {
+        System.out.println("feed dog");
+    }
+}
+class cat extends pet
+{
+    @Override
+    public void feed()
+    {
+        System.out.println("feed cat");
+    }
+}
+
