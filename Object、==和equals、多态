@@ -59,6 +59,11 @@ public class ObjectT {
 }
 3、多态
 多态必须有继承关系，子类必须重写父类方法，父类引用指向子类对象。
+同一个引用类型指向不同的实例而进行不同的操作，例如
+        pet c = new cat();//父类引用指向子类对象，c为pet型，只能引用pet中的方法。若pet中的方法
+        //被cat重写，则使用cat中的方法。
+        dog d = new dog();//d可以执行pet和dog中所有的方法。
+        
 public class poly {
 //    public void feed(cat cat)
 //    {
@@ -75,8 +80,8 @@ public class poly {
     }
     public static void main(String[] args) {
         poly p = new poly();
-        pet c = new cat();//父类引用指向子类对象
-        dog d = new dog();
+        pet c = new cat();//父类引用指向子类对象，自动转型。
+        pet d = new dog();//父类引用指向子类对象
         p.feed(c);
         p.feed(d);
     }
