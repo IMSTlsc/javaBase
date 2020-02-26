@@ -1,0 +1,60 @@
+1、Object
+一个类如果没有extends继承其他类，那么这个类就继承Object类。
+2、==和equals
+package Base;
+
+import java.util.Objects;
+
+public class ObjectT {
+    private String name;
+    private  int age;
+
+    public ObjectT(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override//自定义类需要重写equals，否则总是返回false
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ObjectT objectT = (ObjectT) o;
+        return age == objectT.age &&
+                Objects.equals(name, objectT.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+    public static void main(String[] args) {
+        ObjectT s1 = new ObjectT("zhangsan",12);
+        ObjectT s2 = s1;//s2和s1指向同一存储地址
+        s2.setName("lisi");//修改s2所指的name为lisi，同时s1所指name值也为lisi
+        System.out.println(s1==s2);//T，两个对象指向同一地址。
+        System.out.println(s1.equals(s2));//T，两个对象的值相等。
+        System.out.println(s1.getName());//s1name值为lisi。
+
+        ObjectT s3 = new ObjectT("lisi",12);//新建一个实例，其值与s1相同
+        System.out.println(s1==s3);//F，==比较两个引用类型是否指向同一对象
+        System.out.println(s1.equals(s3));//T，equals比较两个对象内容是否一致，自定义类必须重写equals，否则总是返回false
+
+    }
+}
