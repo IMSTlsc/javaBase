@@ -1,0 +1,139 @@
+异常
+java使用异常处理机制为程序提供错误处理能力，通过try，catch，finally，throw，throws
+1）try catch finally
+//1、try{...} catch(Exception e){e.printStackTrace();} finally{}，是否异常，都会执行finally
+//2、使用e.printStackTrace()打印异常的堆栈信息，从异常信息的最后一行开始追踪，寻找自己编写的代码
+//3、可以使用专门的异常进行捕捉try{...} catch(ArithmeticException e){e.printStackTrace();}
+//4、异常捕捉注意顺序，子类具体Exception在前。若异常类型不匹配，最后的父类Exception会捕捉所有异常。
+import java.util.InputMismatchException;
+import java.util.Scanner;
+public class ExceptionT {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try
+        {
+            System.out.println("input 除数");
+            int num1 = scanner.nextInt();
+            System.out.println("input被除数");
+            int num2 = scanner.nextInt();
+            System.out.println(String.format("%d/%d=%d",num1,num2,num1/num2));
+        }
+//        catch(Exception e)//捕捉所有异常，输出异常的信息，不能放在最前面
+//        {
+//            System.out.println("出现异常");
+//            e.printStackTrace();//打印异常信息
+//        }
+        catch (ArithmeticException e)//专门捕获ArithmeticException异常
+        {
+            System.out.println("除数不能为0");
+            e.printStackTrace();
+        }
+        catch(InputMismatchException e)//专门捕获InputMismatchException异常
+        {
+            System.out.println("数值类型不匹配");
+            e.printStackTrace();
+        }
+        catch(Exception e)//注意顺序，父类在最后捕获前面子类未捕获的异常
+        {
+            System.out.println("出现异常");
+            e.printStackTrace();//打印异常信息
+        }
+        System.out.println("谢谢使用");
+        System.exit(0);//退出程序
+    }
+}
+2、try catch finall与return测试
+测试不同位置的return，以及不同数据类型。
+public class ExceptionTR {
+    public static void main(String[] args) {
+        System.out.println(test1());
+        System.out.println(test2());
+        System.out.println(test3().num);
+        System.out.println(test4());
+
+    }
+
+    //测试一 num为基本类型，finally修改num值，但未返回，修改无效。
+    private static int test1() {
+        int num = 50;
+        try {
+            System.out.println("try");
+            return num += 10;
+            //return num+=10分成num+=10和return num两句，执行完num+=10保存num值跳到finally
+            //try当中的return并不会直接return,而是先执行finally
+            //执行完finally后再返回try
+        } catch (Exception e) {
+            System.out.println("error");
+        } finally {
+            if (num > 20) {
+                System.out.println("num>20\t" + num);//输出num为60
+                num += 20;//num+20
+                //修改了基本类型num值，但是并没有返回，因此更改无法传递；
+                //若是修改了引用类型num的值，虽然没有返回但是更更改有效。
+                System.out.println(num);//输出80，但是并没有将num值返回
+            }
+        }
+        return num += 30;//执行完finally后跳转到try中，直接在try中返回num值，此句不执行
+    }
+
+    //测试二，num为基本类型，finally修改并返回num值，更改有效。
+    private static int test2() {
+        int num = 50;
+        try {
+            System.out.println("try");
+            return num;
+            //因为有finally，try当中的return并不会直接return，跳到finally中
+        } catch (Exception e) {
+            System.out.println("error");
+        } finally {
+            if (num > 20) {
+                System.out.println("num>20\t" + num);
+            }
+            System.out.println("finally");
+            num = 100;//修改num值为100
+            return num;//finally中的return优先于try中的return执行
+        }
+    }
+
+    //测试三：将num改为引用类型，finally当中修改num值，但是不返回，修改有效。
+    private static Num test3() {
+        Num n = new Num();
+        try {
+            System.out.println("try");
+            return n;
+        } catch (Exception e) {
+            System.out.println("error");
+        } finally {
+            if (n.num > 20) {
+                System.out.println("num>20\t" + n.num);
+            }
+            System.out.println("finally");
+            n.num = 100;//final没有return，但是n.num值改变了
+        }
+        return n;//在finally外边返回
+    }
+    private static String test4(){
+        String s = "qwe";
+        try{
+            System.out.println("s的哈希码");
+            String s1 = s;
+            System.out.println(System.identityHashCode(s));
+            System.out.println(System.identityHashCode(s1));
+            return s;//因为有finally，try当中的return并不会直接return，而是先finally
+        }catch(Exception e){
+            System.out.println("error");
+        }finally {
+            System.out.println("为什么修改无效");
+            s = s +"asd";//虽然没有返回s，但是String是引用类型，修改应该有效，但是无效
+            System.out.println(System.identityHashCode(s));
+        }
+        return s;//在finally外边返回
+    }
+}
+class Num
+{
+    int num;
+}
+
+
+
