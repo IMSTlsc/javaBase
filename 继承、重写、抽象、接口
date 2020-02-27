@@ -69,7 +69,7 @@ abstract class AbstractT extends abs{
     public final void test1(){}//重写父类的实例方法，添加final修饰符，此方法无法被再次重写。
     
     public static void main(String[] args) {
-        AbstractT a = new AbstractT() {//匿名内部类实现抽象类的方法，看似new了一个抽象类，实际上new了一个接口的实现类
+        AbstractT a = new AbstractT() {//匿名内部类实现抽象类的方法，看似new了一个抽象类，实际上new了一个抽象类的实现类
             @Override
             void test() {
                 System.out.println("123");
@@ -115,7 +115,7 @@ class D extends B{//使用具体类继承抽象类，具体类必须实现父类
         //A a = new A();抽象类不能实例化。
 
     }
-    public void in2(){}//由于接口中的方法修饰符默认为public abstract，因此实现方法修饰符必须显式public
+    public void in2(){}//由于接口中的方法修饰符默认为public abstract，因此接口实现方法修饰符必须显式public
 }
 5、接口与抽象类异同
 不同：
@@ -135,7 +135,7 @@ class D extends B{//使用具体类继承抽象类，具体类必须实现父类
 
 6、内部类
 //1、一个类内部定义类，称为内部类，可以当作一个成员属性
-//2、内部类可以访问外部类的私有属性,外部类不能直接访问内部类的属性，外部类通过新建内部类实例访问
+//2、内部类可以访问外部类的私有属性，但是其他类创建的内部类实例不可以直接访问。外部类不能直接访问内部类的属性，外部类通过新建内部类实例访问
 //3、创建内部类的方法；outter.InnerClass in1 = new outter().new InnerClass();//直接创建内部类实例
 //4、内部类中的方法不能用static修饰
 //5、匿名内部类，new interface(){重写方法};
@@ -196,6 +196,11 @@ class outter
         }
 //        public static void fail(){}内部类不能定义static方法
     }
+}
+class test
+{
+    outter.InnerClass in = new outter().new InnerClass();//创建内部类实例
+    //int k = in.age;不管外部类中age修饰符是private还是public，在其他类的内部类实例都不能直接访问
 }
 //内部类结束
 
