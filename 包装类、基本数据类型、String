@@ -52,8 +52,35 @@ class NumT
         System.out.println(f1.equals(d1));
     }
 }
+/////////////////////////////////////////////////////////////////////
 2、字符串
-
+//1、字符串放在常量池，常量池放置在堆空间中
+//2、字符串本质是一个字符数组，String类使用final修饰，不能被继承.
+//3、使用equals方法比较的是字符数组每一个位置的值。
+//4、默认的hashCode算法值相同的字符串哈希值相同
+public class StringT {
+    public static void main(String[] args) {
+        String str = "abca";//字符串放在常量池
+        String str2 = new String("abca");
+        System.out.println(str == str2);//false，地址不一样，
+        System.out.println(str.equals(str2));//true
+        System.out.println(str.hashCode()==str2.hashCode());//哈希码一样
+        System.out.println(str.charAt(0));//输出0位置的字符
+        System.out.println(str.equalsIgnoreCase(str2));//忽略大写比较相等
+        System.out.println(str.indexOf('a'));//输出第一个字符a的位置
+        System.out.println(str.length());//返回字符串长度
+        System.out.println(str.replace('a','x'));//将字符串中的a字符替换为x字符
+        System.out.println(str.substring(0,2));//截取一段字符串
+        System.out.println(str.toUpperCase());//将字符串字母全都大写
+        System.out.println(str.toLowerCase());//将字符串字母全部小写
+        System.out.println(str.startsWith("ab"));//字符串是否以ab开头
+        System.out.println(str.endsWith("cd"));//字符串是否以cd结尾
+        System.out.println(str.trim());//返回删除开头和结尾空格后的字符串
+        
+        char[] var = str.toCharArray();//字符串转换为字符数组
+        String v = String.valueOf(var);//字符数组转换为字符串
+    }
+}
 
 
 
