@@ -1,0 +1,2 @@
+1、接口包括Collection接口，Iterator接口，Iterable接口，Set接口，Comparable接口，List接口，Map接口
+2、具体类为Collections，提供了对集合的排序，遍历等操作
