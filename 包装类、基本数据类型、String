@@ -76,6 +76,7 @@ public class StringT {
         System.out.println(str.startsWith("ab"));//字符串是否以ab开头
         System.out.println(str.endsWith("cd"));//字符串是否以cd结尾
         System.out.println(str.trim());//返回删除开头和结尾空格后的字符串
+        System.out.println(str.concat(str2));//将字符串str和str2拼接
         
         char[] var = str.toCharArray();//字符串转换为字符数组
         String v = String.valueOf(var);//字符数组转换为字符串
