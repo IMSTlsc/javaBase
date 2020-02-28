@@ -1,0 +1,29 @@
+package Base;
+//1、包装类是将基本数据类型封装成一个类，包含属性和方法。
+//装箱：将基本数据类型转换成包装类
+//拆箱：将包装类转换成基本数据类型
+public class DataType {
+    public static void main(String[] args) {
+        Integer i1 = 100;
+        Integer i2 = 100;
+        Integer i3 = 200;
+        Integer i4 = 200;
+        Double i5 = 1.0;
+        Double i6 = 1.0;
+        int i7 = i3.intValue();//拆箱成基本类型
+        int i8 = i4.intValue();
+        Integer i9 = Integer.valueOf(i7);//装箱成引用类型
+        Integer i10 = Integer.valueOf(i8);
+        //Integer i1 = 100会执行Integer.ValueOf，在-128-127之间的数从cache中取
+        //不在这个范围的数要new Integer(i)。
+        //Byte.valueOf()创建的数据只能在-128~127，都相等
+        //Short.valueOf()，Long.valueOf()同Integer;
+        //Double.valueOf和Float.valueOf不管数目多大都会新建
+        System.out.println(i1==i2);//true
+        System.out.println(i3==i4);//false
+        System.out.println(i5==i6);//flase
+        System.out.println(i7==i8);//true
+        System.out.println(i9==i10);//flase
+
+    }
+}
