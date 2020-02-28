@@ -1,0 +1,74 @@
+常用StringBuffer，DATE，enum等
+import java.text.*;
+import java.util.Calendar;
+import java.util.Date;
+
+//可变字符串，一个StringBuffer，一个StringBuild。两者方法基本一样
+//StringBuffer线程安全，StringBuild线程不安全。
+public class StringB {
+    public static void main(String[] args) throws ParseException {
+//        new StringB().StringBufferT();
+        new StringB().DateT();
+        Gender g = Gender.LAUNCH;
+        g.show();
+
+    }
+
+    ////1、StringBuffer
+    public void StringBufferT()//StringBuffer类测试
+    {
+        StringBuffer stringBuffer = new StringBuffer();//创建StringBuffer容器，默认容量16
+        stringBuffer.append(1).append(true).append("1111111");//往StringBuffer中添加元素
+        System.out.println(stringBuffer);//按字符串打印
+        System.out.println(stringBuffer.capacity());//长度超过16自动扩容
+        System.out.println(stringBuffer.insert(3, "qwe"));//在下标为3开始的位置插入qwe
+        System.out.println(stringBuffer.reverse());//反转字符串
+    }
+
+    /////2、Date
+    public void DateT() throws ParseException//时间类测试
+    {
+        //Date类
+        Date date = new Date();
+        System.out.println(date);//按默认格式输出时间
+        System.out.println(date.getTime());//获取时间的毫秒值
+        //定义时间格式，字母有意义。时间按照格式输出字符串
+        DateFormat dateFormat = new SimpleDateFormat("y-M-d H:m:s");
+        String format = dateFormat.format(date);//按照规定格式返回一个字符串
+        System.out.println(format);
+        //将字符串转换成对应的日期
+        Date d1 = dateFormat.parse("2010-10-1 1:1:1");
+        System.out.println(d1);
+///////////////////////////////////////////////
+        //3、Calendar类
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar);
+
+        //设定时间
+        calendar.setTime(d1);
+        System.out.println(calendar);
+        System.out.println(calendar.get(Calendar.YEAR));
+    }
+}
+
+//4、枚举类将所有元素列出来，可以直接用。Gender G = Gender.男;
+enum Gender {
+    //添加事件
+    LAUNCH("launch"), PRE("pre"), AFTER("after");
+    private String name;
+
+    Gender(String name) {
+        this.name = name;
+    }
+    public void show() {
+        System.out.println(name);
+        Gender[] g = values();//将枚举类中所有元素放入数组
+        for (Gender k : g) {
+            System.out.println(k);
+        }
+
+    }
+
+
+}
+
