@@ -1,17 +1,23 @@
-package Base;
-//1、包装类是将基本数据类型封装成一个类，包含属性和方法。
+1、包装类与基本类型数值比较
+包装类是将基本数据类型封装成一个类，包含属性和方法。包装类和基本类型比较时，包装类自动拆成基本类型
 //装箱：将基本数据类型转换成包装类
 //拆箱：将包装类转换成基本数据类型
 public class DataType {
     public static void main(String[] args) {
-        Integer i1 = 100;
+        //当引用类型和基本，=类型比较时，会自动转换为基本类型
+        //当引用类型互相比较时，不变
+        Integer i1 = 100;//编译器会自动变成Integer i=Integer.valueOf(100)
+        int i11 = new Integer(100);//编译器自动变成int a = new Integer(100).intValue();
         Integer i2 = 100;
+        String s1 = "200";
+        int i33 = 200;
         Integer i3 = 200;
         Integer i4 = 200;
         Double i5 = 1.0;
+        double i51 = 1.0;
         Double i6 = 1.0;
-        int i7 = i3.intValue();//拆箱成基本类型
-        int i8 = i4.intValue();
+        int i7 = i3.intValue();//拆箱成基本类型，200
+        int i8 = i4.intValue();//拆箱成基本类型，200
         Integer i9 = Integer.valueOf(i7);//装箱成引用类型
         Integer i10 = Integer.valueOf(i8);
         //Integer i1 = 100会执行Integer.ValueOf，在-128-127之间的数从cache中取
@@ -20,10 +26,40 @@ public class DataType {
         //Short.valueOf()，Long.valueOf()同Integer;
         //Double.valueOf和Float.valueOf不管数目多大都会新建
         System.out.println(i1==i2);//true
+        System.out.println(i33==Integer.valueOf(s1));//true，基本类型
+        System.out.println(i3==Integer.valueOf(s1));//false，小于127为true
         System.out.println(i3==i4);//false
         System.out.println(i5==i6);//flase
+        System.out.println(i5==i51);//true，包装类和基本类型比较时，包装类自动拆成基本类型
         System.out.println(i7==i8);//true
         System.out.println(i9==i10);//flase
 
     }
 }
+class NumT
+{
+    public static void main(String[] args) {
+        int a = 10;
+        Integer i = new Integer(10);
+        //通过方法进行类型转换，在运算时会进行自动转换。
+        Integer i2 = Integer.valueOf(a);//装箱，基本类型转换成引用类型
+        int i3 = i.intValue();//拆箱，将引用类型转换成基本类型
+        System.out.println(a==i);
+        Double d1 = 1.0;
+        Float f1 = Float.valueOf(1);
+//        Double.valueOf()；
+//        Byte.valueOf()
+        System.out.println(f1.equals(d1));
+    }
+}
+2、字符串
+
+
+
+
+
+
+
+
+
+
