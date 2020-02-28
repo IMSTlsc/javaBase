@@ -1,5 +1,6 @@
 异常
-java使用异常处理机制为程序提供错误处理能力，通过try，catch，finally，throw，throws
+java使用异常处理机制为程序提供错误处理能力，所有异常的父类是throwable，throwable的父类是Object
+通过try，catch，finally，throw，throws
 1）try catch finally
 //1、try{...} catch(Exception e){e.printStackTrace();} finally{}，是否异常，都会执行finally
 //2、使用e.printStackTrace()打印异常的堆栈信息，从异常信息的最后一行开始追踪，寻找自己编写的代码
@@ -42,7 +43,50 @@ public class ExceptionT {
         System.exit(0);//退出程序
     }
 }
-2、try catch finall与return测试
+/////////////////////////////////////////////////////////////////////////////////////
+2、throws（声明异常，用在方法后边）、throw（抛出异常，常用于自定义异常）
+//1、若A调用B，B调用C，B和C分别try catch，程序麻烦。可以B和C声明异常（throws Excption），由A统一处理。
+//将异常处理（try catch），main方法声明的异常由JVM处理。
+//2、最稳妥的方式是在每个方法中都把异常try catch；若一直throws，最后main方法调用所有方法，JVM处理。
+// 简便方法是判断外层方法有try catch，则可以将异常声明。否则本方法就需要try catch
+//3、可以自定义异常类，继承Exception父类，编写构造方法，抛出异常throw new myException()
+public class ExceptionTT {
+    public static void main(String[] args) //throws Exception//main函数抛出异常，由JVM处理
+    {
+        Person p = new Person();
+        try {
+            p.setSex("n");
+        } catch (GenderException e) {//捕获自定义的异常
+            e.printStackTrace();
+        }
+        System.out.println("right");
+    }
+}
+class Person {
+    private String name = "";
+    private int age = 0;
+    private String sex = "nan";
+    public void setSex(String sex) throws GenderException//声明自定义的异常
+    {
+        if (sex.equals("nan") || sex.equals("nv")) {
+            this.sex = sex;
+        } else {
+//            throw new Exception("性别错误");
+            throw new GenderException("性别异常");//抛出自定义的异常
+        }
+    }
+}
+//自定义GenderException类。继承Exception，编写构造方法，使用时throw new GenderException
+class GenderException extends Exception {
+    public GenderException() {
+        System.out.println("性别异常");
+    }
+    public GenderException(String msg) {
+        System.out.println(msg);
+    }
+}
+////////////////////////////////////////////////////////////////////////
+3、try catch finall与return测试
 测试不同位置的return，以及不同数据类型。
 public class ExceptionTR {
     public static void main(String[] args) {
@@ -50,7 +94,6 @@ public class ExceptionTR {
         System.out.println(test2());
         System.out.println(test3().num);
         System.out.println(test4());
-
     }
 
     //测试一 num为基本类型，finally修改num值，但未返回，修改无效。
