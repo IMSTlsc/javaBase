@@ -60,11 +60,30 @@ class NumT
 //4、默认的hashCode算法值相同的字符串哈希值相同
 public class StringT {
     public static void main(String[] args) {
+    //字符串值比较1
         String str = "abca";//字符串放在常量池
         String str2 = new String("abca");
         System.out.println(str == str2);//false，地址不一样，
         System.out.println(str.equals(str2));//true
         System.out.println(str.hashCode()==str2.hashCode());//哈希码一样
+    //字符串值比较2
+        String a = "abc";//生成常量池中的字符串
+        String b = "def";
+        String c = "abcdef";
+        String d = a + b;
+        String e = "abc" + "def";
+        String f = (a+b).intern();//intern()查找常量池中是否存在equal相等的字符串，有的话就
+        //返回该字符串的引用，没有的话就将它加入字符串常量值。
+        final String a1 = "abc";
+        final String b1 = "def";
+        String c1 = a1 + b1;
+        System.out.println(c1 == "abcdef");//T
+        System.out.println(c==d);//F
+        System.out.println(c==e);//T
+        System.out.println(c==f);//T
+        
+        
+        //String类常用方法
         System.out.println(str.charAt(0));//输出0位置的字符
         System.out.println(str.equalsIgnoreCase(str2));//忽略大写比较相等
         System.out.println(str.indexOf('a'));//输出第一个字符a的位置
