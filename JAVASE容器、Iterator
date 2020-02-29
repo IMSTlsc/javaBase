@@ -1,14 +1,13 @@
 1、接口包括Collection接口，Iterator接口，Iterable接口，Set接口，Comparable接口，List接口，Map接口
 2、具体类为Collections，提供了对集合的排序，遍历等操作
-//1、Collection存储不唯一，无序对象
+//1、Collection存储不唯一，无序对象，List，Set是Collection的子接口，
 //2、List存储不唯一，有序对象。操作索引(index)的方法是List独有的
 //3、Set存储唯一，无序对象
 //4、Map使用k-v存储
-import java.util.*;
-
-//1、ArrayList，HashSet，LinkedHashSet，TreeSet，Vector
-//2、List，Set是Collection的子接口，
-//3、ArrayList和LinkedList，Vector是List的实现类，
+/////////////////////////////////////////////////////////////////////////////
+////////////List测试
+//1、ArrayList查找元素快，LinkedList插入删除快
+//1、ArrayList和LinkedList，Vector是List的实现类，
 // Vector线程安全,ArrayList不安全。Vector扩容2倍，Arraylist扩容1.5倍
 public class CollectionsT {
     public static void main(String[] args) {
@@ -61,4 +60,22 @@ public class CollectionsT {
         collection.clear();//清空元素
     }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+迭代器
+        //迭代器
+        //Iterator iterator = linkedList.iterator();//将集合变成迭代器对象
+        ListIterator iterator = linkedList.listIterator();//Iterator的子接口
+        while(iterator.hasNext())//当集合还有元素
+        {
+            Object o = iterator.next();
+            if(o.equals(1))
+                iterator.remove();//删除1这个元素，当使用Iterator时，删除报错
+            System.out.println(iterator.next());
+        }
+
+        //增强for循环实际上也是迭代器
+        for(Object i : linkedList)//linkedList中1元素已删除
+        {
+            System.out.println(i);
+        }
 
