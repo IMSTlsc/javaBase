@@ -1,0 +1,64 @@
+1、接口包括Collection接口，Iterator接口，Iterable接口，Set接口，Comparable接口，List接口，Map接口
+2、具体类为Collections，提供了对集合的排序，遍历等操作
+//1、Collection存储不唯一，无序对象
+//2、List存储不唯一，有序对象。操作索引(index)的方法是List独有的
+//3、Set存储唯一，无序对象
+//4、Map使用k-v存储
+import java.util.*;
+
+//1、ArrayList，HashSet，LinkedHashSet，TreeSet，Vector
+//2、List，Set是Collection的子接口，
+//3、ArrayList和LinkedList，Vector是List的实现类，
+// Vector线程安全,ArrayList不安全。Vector扩容2倍，Arraylist扩容1.5倍
+public class CollectionsT {
+    public static void main(String[] args) {
+//        new CollectionsT().CollectionTest();
+        new CollectionsT().LinkedTest();
+        Vector vector = new Vector();
+    }
+    //LinkedList测试
+    public void LinkedTest(){
+        LinkedList linkedList = new LinkedList();
+        linkedList.add(123);
+        linkedList.add(true);//在尾部添加元素
+//        linkedList.add(1,"qwe");
+//        linkedList.remove(1);
+//        linkedList.peek();//返回顶部元素
+//        linkedList.poll();//返回顶部元素并删除
+        linkedList.push("asd");//在头部压入元素
+        linkedList.pop();//从头部删除元素
+        linkedList.pop();//从头部删除元素
+        System.out.println(linkedList);
+    }
+    //Collection测试
+    public void CollectionTest(){
+        Collection collection = new ArrayList();
+
+        collection.add(1);//自动装箱成new Integer(1)
+        collection.add(true);//可以存放所有Object类型
+        collection.add(true);//可以重复存放
+        if (collection.contains(1))//判断是否包含某个元素
+            ((List)((ArrayList)collection)).remove(true);//先强转为ArrayList，再转成List。
+        ((List) collection).add(1, "qwe");//Collection是无序的，强转成List型。
+        // 不能强转为Set，因为创建的是ArrayList实例。Collection-List-ArraList
+        System.out.println(((ArrayList) collection).get(1));
+
+        Collection collection1 = new ArrayList();
+        collection1.add(2);
+        collection1.add(3);
+        ((ArrayList) collection).addAll(collection1);//父类强转成子类。
+        System.out.println(collection);
+
+        System.out.println(collection.contains(2));//判断集合中是否包含某个元素。
+        System.out.println(collection.containsAll(collection1));//判断一个集合是否包含另一个集合，元素顺序一样
+        System.out.println(collection.isEmpty());//判断是否为空
+        System.out.println(collection.retainAll(collection1));//判断一个集合是否拥有另一个集合的所有元素，元素顺序不必一样
+
+        Object[] objects = collection.toArray();
+        for (Object o : objects)
+            System.out.println(o);
+
+        collection.clear();//清空元素
+    }
+}
+
