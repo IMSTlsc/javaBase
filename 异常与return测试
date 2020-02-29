@@ -44,7 +44,7 @@ public class ExceptionT {
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////
-2、throws（声明异常，用在方法后边）、throw（抛出异常，常用于自定义异常）
+2、throws（声明异常，Exception）、throw（抛出某种具体异常）
 //1、若A调用B，B调用C，B和C分别try catch，程序麻烦。可以B和C声明异常（throws Excption），由A统一处理。
 //将异常处理（try catch），main方法声明的异常由JVM处理。
 //2、最稳妥的方式是在每个方法中都把异常try catch；若一直throws，最后main方法调用所有方法，JVM处理。
@@ -72,7 +72,7 @@ class Person {
             this.sex = sex;
         } else {
 //            throw new Exception("性别错误");
-            throw new GenderException("性别异常");//抛出自定义的异常
+            throw new GenderException("性别异常");//抛出具体的异常
         }
     }
 }
