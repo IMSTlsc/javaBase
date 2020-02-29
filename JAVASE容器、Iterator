@@ -60,6 +60,35 @@ public class CollectionsT {
         collection.clear();//清空元素
     }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////
+Set：Set存放无序，不重复的数据，重复的数据自动合并。常用TreeSet和HashSet
+public class SetT {
+    public static void main(String[] args) {
+        new SetT().TreeSetTest();
+
+    }
+    public void TreeSetTest()//Tree当中存储的数据类型一致，因为在存储时会排序
+    {
+        TreeSet treeSet = new TreeSet();//本质是TreeMap
+        treeSet.add("312");
+        treeSet.add("qwe");
+        System.out.println(treeSet);
+    }
+    public void HashSetTest()
+    {
+        Set set = new HashSet();//HashSet本质上是HashMap
+        set.add(1);
+        set.add(1);
+        set.add(2);
+        System.out.println(set);
+        //使用for的迭代器
+        for(Iterator iter = set.iterator();iter.hasNext();)
+        {
+            System.out.println(iter.next());
+        }
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 迭代器
         //迭代器
