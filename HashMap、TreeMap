@@ -1,1 +1,37 @@
 
+package Base;
+//1、Map使用k-v存储数据，key使用set类型，默认按照key查重
+// 子类有分为HashMap、LinkedHashMap、TreeMap等
+//HashMap：使用数组+链表+红黑树储存数据（1.8），之前使用数组+链表。
+//   HashTable线程安全；HashTable k-v值不能为空。
+//LinkedHashMap：链表
+//TreeMap：红黑树
+//2、基本操作：
+//增加：.put(k,v)
+//查找：.isEmpty() .size()  .containsKey()  .containsValue() .get(key)
+//删除：.remove(key) .clear()
+import java.util.*;
+
+public class MapDemo {
+    public static void main(String[] args) {
+
+    }
+    public void HashMapTest()
+    {
+        Map<String,Integer> map = new Hashtable<>();//线程安全
+//        map.put(null,null);HashTable put值都不能为空
+        map.put("a",1);
+        map.put("c",1);
+        map.put("b",1);
+        map.remove("b");
+        System.out.println(map);
+        System.out.println(map.containsKey("a"));
+        System.out.println(map.containsValue(1));
+        System.out.println(map.get("a"));
+
+        //遍历操作
+        Set<String> keys = map.keySet();
+        for(String key : keys)
+            System.out.println(key+"=="+map.get(key));
+    }
+}
