@@ -1,0 +1,60 @@
+package Base;
+//1、使用泛型保证集合数据中的类型是统一的，数据安全，获取数据效率高
+//2、泛型的应用
+//泛型类：在定义类时在类名后边class<A>，起到占位作用，在创建实例时可以规定A的类型
+//泛型接口：
+//泛型方法：在定义方法的时候，指定方法的返回值和形参是泛型。
+//形参类型可以是仅在此方法生效的Q类型，需要在返回类型之前使用<Q>,public <Q> String f(Q q)
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
+public class fanxing {
+    public static void main(String[] args) {
+//        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
+        list.add("qwe");
+        list.add(new Integer(1).toString());
+
+        //测试泛型类。规定数据类型
+        fanClass<String> f = new fanClass<>();
+        f.setA("zhangsan");
+        f.setId(1);
+        f.show();
+
+        fanClass<Integer> f1 = new fanClass<>();
+        f1.setA(123);
+        f1.setId(1);
+        f1.show();
+
+        //测试泛型方法
+        f.show("qwe");//输出qwe
+        f.show(123);//输出123
+
+    }
+}
+//泛型类测试，自定义fanClass实例的数据类型
+class fanClass<A>
+{
+    private int id;
+    private A a;
+    //泛型方法
+    public <Q> void show(Q q)//形参类型可以是仅在此方法生效的Q类型，需要在返回类型之前使用<Q>
+    {
+        System.out.println(q);
+    }
+    public A getA() {
+        return a;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setA(A a) {
+        this.a = a;
+    }
+    public void show()
+    {
+        System.out.println(a +" "+ id);
+    }
+}
