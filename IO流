@@ -43,7 +43,7 @@ public class IOTest {
             reader = new FileReader("D://java/src.txt");
             //设置缓冲区
             char[] buffer = new char[1024];
-            //完成数据传输
+            //完成数据传输，流读取完成后会返回-1
             int length = 0;
             while ((length = reader.read(buffer)) != -1) {
                 System.out.println(new String(buffer, 0, length));
