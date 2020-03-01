@@ -1,5 +1,7 @@
 package IO;
 //流按照传输数据类型，可分为字节流和字符流；按照功能可分为节点流和包装流（处理流）。
+//对象（自建class）在IO流中传输：
+//如果要将对象从IO流传输（ObjectOutputStream），对象必须要实现Serializable接口，对象中必须声明serialVersion参数值
 一、按功能
 //1、节点流（FileOutputStream，FileInputStream，FileReader，FileWriter）可以直接从数据源读写数据；
 //2、包装流（OutputStreamWriter，InputStreamReader）不能直接连接到数据源，主要对其他流进行包装以简化操作提高性能。例如让字节流读取字符，
