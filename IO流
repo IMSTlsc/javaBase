@@ -1,16 +1,72 @@
 package IO;
 //1、字节流 InputStream，OutStream（8位字节），传输音乐，文本等。中文会乱码
 //2、字符流 Reader，Writer（16位unicode码），传输中文（一般两个字节）不会乱码
-//3、带缓冲区必须flush；不带缓冲区close可以充当flush
+//3、对于输出流，带缓冲区必须flush；不带缓冲区close可以充当flush
+//4、字符流的缓冲区为byte[],字符流的缓冲区为char[]
 
 import java.io.*;
 
 public class IOTest {
-    public static void main(String[] args) {
-//        new IOTest().CopyFile();
+    public static void main(String[] args) throws Exception{
+        new IOTest().Copybyte();
+//        new IOTest().Copychar();
 //        new IOTest().ReaderTest();
-        new IOTest().WriterTest();
+//        new IOTest().WriterTest();
 
+
+    }
+    //使用byte，复制pdf
+    public void Copybyte() {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try{
+            //创建流
+            inputStream = new FileInputStream("F://1.pdf");
+            outputStream = new FileOutputStream("F://2.pdf");
+            //创建缓存区
+            byte[] buffer = new byte[1024];
+            int length = 0;
+            //文件传输完成 =-1
+            while((length = inputStream.read(buffer)) != -1){
+                outputStream.write(buffer);
+            }
+           // 输出流flush
+            outputStream.flush();
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e) {//IOException要在FileException后边
+            e.printStackTrace();
+        } finally{
+            try{
+                //关闭流
+                inputStream.close();
+                outputStream.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+    //使用char复制文本文档
+    public void Copychar()
+    {
+        Reader reader = null;
+        Writer writer = null;
+        try{
+            reader = new FileReader("F://1.txt");
+            writer = new FileWriter("F://2.txt");
+
+            char[] buf = new char[1024];
+            int length = 0;
+            while((length = reader.read(buf)) != -1){
+                writer.write(buf);
+            }
+            writer.flush();
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
+        }
     }
     //使用Writer将内容写到文件中
     public void WriterTest() {
@@ -56,43 +112,6 @@ public class IOTest {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //测试复制文本文档，使用FileInputStream
-    public void CopyFile() {
-        //定义源文件地址
-        File src = new File("D://java/src.txt");
-        //定义目标文件地址
-        File dest = new File("D://java/dest.txt");
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-
-        try {
-            //创建输入流对象
-            inputStream = new FileInputStream(src);
-            //创建输出流对象
-            outputStream = new FileOutputStream(dest);
-
-            //无法确定文件大小，使用缓冲的方式
-            byte[] buffer = new byte[1024];
-
-            //完成数据传输
-            int length = 0;
-            while ((length = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                outputStream.close();
-                inputStream.close();
-            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
