@@ -158,3 +158,62 @@ public class IOTest {
 
     }
 }
+/////////////////////////////////////////////////////////////////////////////////////////
+print流，buffer流
+package IO;
+
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+
+public class IOTest1 {
+
+    public static void main(String[] args) {
+//        new IOTest1().BaiDu();
+        new IOTest1().PrintTest();
+
+    }
+    //print流
+    public void PrintTest(){
+        PrintStream printStream = null;
+//        printStream = new PrintStream(new FileOutputStream("F://1.txt"));
+        try {
+            printStream = new PrintStream(System.out);//加载System.out
+            printStream.write("qqwewe".getBytes());
+            printStream.print(true);//相当于sout
+            //格式化输出
+            printStream.printf("%s %d %f","qwe",123,11.2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+//获取网页信息
+    public void BaiDu() {
+        BufferedReader bufferedReader = null;
+        BufferedWriter bufferWriter = null;
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(new URL("http://baidu.com").openStream(), "utf-8"));
+            bufferWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("baidu.html")));
+
+            String msg = null;
+            while ((msg = bufferedReader.readLine()) != null) {
+                bufferWriter.write(msg);
+                bufferWriter.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bufferWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
