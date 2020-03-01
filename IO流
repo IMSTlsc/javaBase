@@ -4,7 +4,7 @@ package IO;
 //1、节点流（FileOutputStream，FileInputStream，FileReader，FileWriter）可以直接从数据源读写数据；
 //2、包装流（OutputStreamWriter，InputStreamReader）不能直接连接到数据源，主要对其他流进行包装以简化操作提高性能。例如让字节流读取字符，
 //可以使用InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,utf-8);其中utf-8设置编码格式，可省略
-//在网络编程时，有getInputStream而没有getReader，因此要包装。
+//在网络编程时，有getInputStream而没有getReader，因此要包装提高效率。
 二、按数据类型
 //1、字节流 InputStream，OutStream（8位字节），传输音乐，文本等。中文会乱码
 //2、字符流 Reader，Writer（16位unicode码），传输中文（一般两个字节）不会乱码
