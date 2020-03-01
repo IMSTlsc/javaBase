@@ -24,7 +24,7 @@ public class IOTest {
             inputStream = new FileInputStream("F://1.pdf");
             outputStream = new FileOutputStream("F://2.pdf");
             //创建缓存区
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[1024];//每1024个字节为一组传输，一个字母一个字节
             int length = 0;
             //文件传输完成 =-1
             while((length = inputStream.read(buffer)) != -1){
